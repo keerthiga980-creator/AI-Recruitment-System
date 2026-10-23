@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - AI Recruit</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #25205c, transparent 40%),
+                radial-gradient(circle at bottom right, #1c4265, transparent 40%),
+                #0d0d1b;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            color: white;
+        }
+
+        .login-wrapper {
+            width: 900px;
+            min-height: 560px;
+
+            display: flex;
+
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            border-radius: 25px;
+            overflow: hidden;
+
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(15px);
+        }
+
+        /* LEFT SIDE */
+
+        .login-left {
+            width: 45%;
+
+            padding: 50px 40px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #6c63ff,
+                    #5548d9,
+                    #263f9f
+                );
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .logo span {
+            color: #dcd9ff;
+        }
+
+        .login-left h1 {
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .login-left p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .ai-box {
+            margin-top: 35px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .ai-box strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        /* RIGHT SIDE */
+
+        .login-right {
+            width: 55%;
+            padding: 50px 45px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-right h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaaabe;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #ddd;
+        }
+
+        .input-group input,
+        .input-group select {
+
+            width: 100%;
+            height: 50px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+
+            padding: 0 15px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+
+            transition: 0.3s;
+        }
+
+        .input-group input::placeholder {
+            color: #88889c;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+
+            border-color: #8b82ff;
+
+            box-shadow:
+                0 0 0 4px rgba(108, 99, 255, 0.15);
+        }
+
+        /* SELECT */
+
+        .input-group select {
+            cursor: pointer;
+        }
+
+        .input-group select option {
+            background: #20203a;
+            color: white;
+        }
+
+        /* OPTIONS */
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 25px;
+
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #aaaabe;
+        }
+
+        .forgot {
+            color: #8b82ff;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        /* BUTTON */
+
+        .login-btn {
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c63ff,
+                    #8b82ff
+                );
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(108, 99, 255, 0.35);
+        }
+
+        /* REGISTER */
+
+        .register-text {
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 14px;
+            color: #aaaabe;
+        }
+
+        .register-text a {
+            color: #8b82ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            .login-wrapper {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .login-left,
+            .login-right {
+                width: 100%;
+            }
+
+            .login-left {
+                padding: 35px;
+            }
+
+            .login-right {
+                padding: 35px;
+            }
+
+            .login-left h1 {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="login-wrapper">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="login-left">
+
+            <div class="logo">
+                AI <span>Recruit</span>
+            </div>
+
+            <h1>
+                Find the right talent with AI.
+            </h1>
+
+            <p>
+                Connect recruiters with skilled candidates
+                using intelligent job matching and local
+                talent discovery.
+            </p>
+
+            <div class="ai-box">
+
+                <strong>
+                    🤖 AI-Powered Recruitment
+                </strong>
+
+                <p>
+                    Match candidates with jobs based on
+                    skills, education, experience and
+                    certifications.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="login-right">
+
+            <h2>Welcome Back 👋</h2>
+
+            <p class="subtitle">
+                Login to continue your AI Recruit journey.
+            </p>
+
+
+            <!-- DEMO ACCOUNT SHORTCUTS -->
+            <div style="background: rgba(255,255,255,0.08); padding: 12px 14px; border-radius: 12px; margin-bottom: 20px; font-size: 13px;">
+                <div style="font-weight: 600; margin-bottom: 8px; color: #dcd9ff;">✨ Quick Demo Logins:</div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" onclick="fillDemo('candidate')" style="border: 1px solid rgba(255,255,255,0.25); background: rgba(108,99,255,0.3); color: white; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">👤 Candidate</button>
+                    <button type="button" onclick="fillDemo('hr')" style="border: 1px solid rgba(255,255,255,0.25); background: rgba(108,99,255,0.3); color: white; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">💼 Recruiter</button>
+                    <button type="button" onclick="fillDemo('admin')" style="border: 1px solid rgba(255,255,255,0.25); background: rgba(108,99,255,0.3); color: white; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">⚙️ Admin</button>
+                </div>
+            </div>
+
+            <div id="loginAlert" style="display: none; padding: 12px 15px; border-radius: 10px; margin-bottom: 18px; font-size: 14px;"></div>
+
+            <!-- IMPORTANT: FORM STARTS HERE -->
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="input-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="input-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="input-group">
+
+                    <label>
+                        Login As
+                    </label>
+
+                    <select id="role" required>
+
+                        <option value="">
+                            Select your role
+                        </option>
+
+                        <option value="candidate">
+                            Candidate
+                        </option>
+
+                        <option value="hr">
+                            HR / Recruiter
+                        </option>
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+
+                <div class="login-options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        Remember me
+
+                    </label>
+
+                    <a
+                        href="#"
+                        class="forgot"
+                    >
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Login to AI Recruit →
+                </button>
+
+
+            </form>
+
+
+            <!-- REGISTER -->
+
+            <p class="register-text">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Create Account
+                </a>
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="static/js/script.js"></script>
+    <script>
+        function fillDemo(type) {
+            if (type === 'candidate') {
+                document.getElementById("email").value = "priya@gmail.com";
+                document.getElementById("password").value = "candidate123";
+                document.getElementById("role").value = "candidate";
+            } else if (type === 'hr') {
+                document.getElementById("email").value = "recruiter@techcorp.com";
+                document.getElementById("password").value = "hr123";
+                document.getElementById("role").value = "hr";
+            } else if (type === 'admin') {
+                document.getElementById("email").value = "admin@airecruit.com";
+                document.getElementById("password").value = "admin123";
+                document.getElementById("role").value = "admin";
+            }
+        }
+
+        const loginForm = document.getElementById("loginForm");
+        const loginAlert = document.getElementById("loginAlert");
+        const submitBtn = document.querySelector(".login-btn");
+
+        loginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            loginAlert.style.display = "none";
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const role = document.getElementById("role").value;
+
+            if (!email || !password || !role) {
+                showAlert("Please fill in email, password, and select your role.", false);
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Logging in...";
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password, role })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert("🎉 " + data.message, true);
+                    setCurrentUser(data.user);
+
+                    setTimeout(() => {
+                        if (data.user.role === "candidate") {
+                            window.location.href = "candidate-dashboard.html";
+                        } else {
+                            window.location.href = "hr-dashboard.html";
+                        }
+                    }, 600);
+                } else {
+                    showAlert(data.detail || "Invalid login credentials. Please try again.", false);
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                showAlert("Cannot connect to backend server. Make sure FastAPI server is running on port 8000.", false);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Login to AI Recruit →";
+            }
+        });
+
+        function showAlert(msg, isSuccess) {
+            loginAlert.textContent = msg;
+            loginAlert.style.display = "block";
+            loginAlert.style.background = isSuccess ? "rgba(25, 135, 84, 0.35)" : "rgba(220, 53, 69, 0.35)";
+            loginAlert.style.border = isSuccess ? "1px solid #198754" : "1px solid #dc3545";
+            loginAlert.style.color = "#fff";
+        }
+    </script>
+</body>
+</html>

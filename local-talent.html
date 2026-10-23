@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Local Talent | AI Recruit</title>
+
+    <link rel="stylesheet" href="static/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7fb;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        .location-search {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+        }
+
+        input,
+        select {
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #6d5dfc, #8b5cf6);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+        }
+
+        .candidate-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .candidate-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .candidate-top {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #eee7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+        }
+
+        .candidate-info h3 {
+            margin: 0;
+        }
+
+        .candidate-info p {
+            margin: 6px 0;
+            color: #666;
+        }
+
+        .location {
+            color: #6846d8;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .skills {
+            margin-top: 15px;
+        }
+
+        .skill {
+            display: inline-block;
+            background: #f0edff;
+            color: #6846d8;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin: 3px;
+        }
+
+        .candidate-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .match {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            border: none;
+            padding: 9px 15px;
+            border-radius: 8px;
+            background: #111827;
+            color: white;
+            cursor: pointer;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #6846d8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .search-row {
+                grid-template-columns: 1fr;
+            }
+
+            .candidate-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            AI <span>Recruit</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="hr-dashboard.html">Dashboard</a>
+            <a href="login.html">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+        <!-- HEADER -->
+        <div class="page-header">
+
+            <h1>Local Talent Discovery 📍</h1>
+
+            <p>
+                Discover skilled candidates from nearby locations
+                and connect local talent with suitable opportunities.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH -->
+        <div class="location-search">
+
+            <div class="search-row">
+
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Enter location e.g. Coimbatore"
+                >
+
+                <select id="skillFilter">
+
+                    <option value="all">
+                        All Skills
+                    </option>
+
+                    <option value="python">
+                        Python
+                    </option>
+
+                    <option value="java">
+                        Java
+                    </option>
+
+                    <option value="ai">
+                        AI / ML
+                    </option>
+
+                    <option value="data">
+                        Data Analytics
+                    </option>
+
+                </select>
+
+                <button
+                    class="search-btn"
+                    onclick="findLocalTalent()"
+                >
+                    Find Talent
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTS -->
+        <div class="section-title">
+
+            <h2>
+                Local Candidates
+            </h2>
+
+            <span id="resultCount">
+                6 Candidates
+            </span>
+
+        </div>
+
+
+        <div class="candidate-list">
+
+
+            <!-- Candidate 1 -->
+            <div
+                class="candidate-card"
+                data-location="coimbatore"
+                data-skill="python"
+            >
+
+                <div class="candidate-top">
+
+                    <div class="avatar">
+                        👩‍💻
+                    </div>
+
+                    <div class="candidate-info">
+
+                        <h3>Priya S</h3>
+
+                        <p>Python Developer</p>
+
+                    </div>
+
+                </div>
+
+                <div class="location">
+                    📍 Coimbatore
+                </div>
+
+                <div class="skills">
+
+                    <span class="skill">Python</span>
+                    <span class="skill">SQL</span>
+                    <span class="skill">Django</span>
+
+                </div>
+
+                <div class="candidate-bottom">
+
+                    <span class="match">
+                        AI Match: 94%
+                    </span>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewProfile('Priya S')"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Candidate 2 -->
+            <div
+                class="candidate-card"
+                data-location="coimbatore"
+                data-skill="ai"
+            >
+
+                <div class="candidate-top">
+
+                    <div class="avatar">
+                        👨‍💻
+                    </div>
+
+                    <div class="candidate-info">
+
+                        <h3>Arun K</h3>
+
+                        <p>AI/ML Developer</p>
+
+                    </div>
+
+                </div>
+
+                <div class="location">
+                    📍 Coimbatore
+                </div>
+
+                <div class="skills">
+
+                    <span class="skill">Python</span>
+                    <span class="skill">Machine Learning</span>
+                    <span class="skill">NLP</span>
+
+                </div>
+
+                <div class="candidate-bottom">
+
+                    <span class="match">
+                        AI Match: 91%
+                    </span>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewProfile('Arun K')"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Candidate 3 -->
+            <div
+                class="candidate-card"
+                data-location="tiruppur"
+                data-skill="data"
+            >
+
+                <div class="candidate-top">
+
+                    <div class="avatar">
+                        👩‍💼
+                    </div>
+
+                    <div class="candidate-info">
+
+                        <h3>Divya R</h3>
+
+                        <p>Data Analyst</p>
+
+                    </div>
+
+                </div>
+
+                <div class="location">
+                    📍 Tiruppur
+                </div>
+
+                <div class="skills">
+
+                    <span class="skill">SQL</span>
+                    <span class="skill">Excel</span>
+                    <span class="skill">Power BI</span>
+
+                </div>
+
+                <div class="candidate-bottom">
+
+                    <span class="match">
+                        AI Match: 87%
+                    </span>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewProfile('Divya R')"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Candidate 4 -->
+            <div
+                class="candidate-card"
+                data-location="chennai"
+                data-skill="java"
+            >
+
+                <div class="candidate-top">
+
+                    <div class="avatar">
+                        👨‍💻
+                    </div>
+
+                    <div class="candidate-info">
+
+                        <h3>Karthik M</h3>
+
+                        <p>Java Developer</p>
+
+                    </div>
+
+                </div>
+
+                <div class="location">
+                    📍 Chennai
+                </div>
+
+                <div class="skills">
+
+                    <span class="skill">Java</span>
+                    <span class="skill">Spring Boot</span>
+                    <span class="skill">MySQL</span>
+
+                </div>
+
+                <div class="candidate-bottom">
+
+                    <span class="match">
+                        AI Match: 85%
+                    </span>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewProfile('Karthik M')"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Candidate 5 -->
+            <div
+                class="candidate-card"
+                data-location="coimbatore"
+                data-skill="data"
+            >
+
+                <div class="candidate-top">
+
+                    <div class="avatar">
+                        👩‍💻
+                    </div>
+
+                    <div class="candidate-info">
+
+                        <h3>Sneha P</h3>
+
+                        <p>Data Analyst</p>
+
+                    </div>
+
+                </div>
+
+                <div class="location">
+                    📍 Coimbatore
+                </div>
+
+                <div class="skills">
+
+                    <span class="skill">Python</span>
+                    <span class="skill">SQL</span>
+                    <span class="skill">Power BI</span>
+
+                </div>
+
+                <div class="candidate-bottom">
+
+                    <span class="match">
+                        AI Match: 83%
+                    </span>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewProfile('Sneha P')"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Candidate 6 -->
+            <div
+                class="candidate-card"
+                data-location="salem"
+                data-skill="ai"
+            >
+
+                <div class="candidate-top">
+
+                    <div class="avatar">
+                        👨‍💻
+                    </div>
+
+                    <div class="candidate-info">
+
+                        <h3>Rahul S</h3>
+
+                        <p>ML Engineer</p>
+
+                    </div>
+
+                </div>
+
+                <div class="location">
+                    📍 Salem
+                </div>
+
+                <div class="skills">
+
+                    <span class="skill">Python</span>
+                    <span class="skill">Machine Learning</span>
+                    <span class="skill">NLP</span>
+
+                </div>
+
+                <div class="candidate-bottom">
+
+                    <span class="match">
+                        AI Match: 81%
+                    </span>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewProfile('Rahul S')"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="hr-dashboard.html"
+            class="back-link"
+        >
+            ← Back to HR Dashboard
+        </a>
+
+    </main>
+
+
+
+    <!-- LOCAL TALENT VIEW MODAL -->
+    <div id="localCandModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 18px; width: 500px; max-width: 90%; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <h2 id="ltModalName" style="margin: 0 0 5px 0; font-size: 22px;">Candidate Name</h2>
+                    <p id="ltModalRole" style="margin: 0; color: #6d28d9; font-weight: 600;">Role Title</p>
+                </div>
+                <button onclick="closeLtModal()" style="border: none; background: #eee; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px;">✕</button>
+            </div>
+
+            <div style="background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; line-height: 1.8;">
+                <div><strong>📍 Local City:</strong> <span id="ltModalLoc">-</span></div>
+                <div><strong>🎓 Education:</strong> <span id="ltModalEdu">-</span></div>
+                <div><strong>🏆 Qualification:</strong> <span id="ltModalQual">-</span></div>
+                <div><strong>💼 Experience:</strong> <span id="ltModalExp">-</span></div>
+                <div><strong>📧 Email:</strong> <span id="ltModalEmail">-</span></div>
+                <div><strong>📞 Phone:</strong> <span id="ltModalPhone">-</span></div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong style="display: block; font-size: 13px; margin-bottom: 8px;">Technical Skills:</strong>
+                <div id="ltModalSkills" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" onclick="closeLtModal()" style="padding: 10px 18px; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer;">Close</button>
+                <a id="ltModalEmailBtn" href="#" style="text-decoration: none; padding: 10px 20px; background: #6d5dfc; color: white; border-radius: 8px; font-weight: bold;">✉️ Contact Local Talent</a>
+            </div>
+        </div>
+    </div>
+    <script src="static/js/script.js"></script>
+    <script>
+        let localCandidates = [];
+
+        async function findLocalTalent() {
+            const location = document.getElementById("locationInput").value.trim();
+            const skill = document.getElementById("skillFilter").value;
+            const grid = document.getElementById("localTalentGrid");
+            const resultCount = document.getElementById("resultCount");
+
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/local-talent?location=${encodeURIComponent(location)}&skill=${encodeURIComponent(skill)}`
+                );
+                const data = await response.json();
+                localCandidates = data.candidates || [];
+                resultCount.textContent = localCandidates.length + " Local Candidates";
+
+                if (localCandidates.length === 0) {
+                    grid.innerHTML = '<p style="color: #666; text-align: center; grid-column: 1 / -1; padding: 40px;">No candidates found matching this location/skill combination.</p>';
+                    return;
+                }
+
+                grid.innerHTML = localCandidates.map((cand, idx) => `
+                    <div class="candidate-card" style="display: block;">
+                        <div class="candidate-top">
+                            <div class="avatar">👤</div>
+                            <div class="candidate-info">
+                                <h3>${cand.name}</h3>
+                                <p>${cand.role_title || 'Local Developer'}</p>
+                            </div>
+                        </div>
+
+                        <div class="location">
+                            📍 ${cand.location || 'Local'}
+                        </div>
+
+                        <div class="skills">
+                            ${(cand.skills || []).slice(0, 4).map(s => `<span class="skill">${s}</span>`).join('')}
+                        </div>
+
+                        <div class="candidate-bottom">
+                            <span class="match">
+                                🎯 AI Match: ${cand.match || 90}%
+                            </span>
+                            <button class="view-btn" onclick="openLtModal(${idx})">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error("Local Talent Error:", error);
+                grid.innerHTML = '<p style="color: red; text-align: center; grid-column: 1 / -1; padding: 40px;">Could not connect to backend server.</p>';
+            }
+        }
+
+        function openLtModal(idx) {
+            const cand = localCandidates[idx];
+            if (!cand) return;
+
+            document.getElementById("ltModalName").textContent = cand.name;
+            document.getElementById("ltModalRole").textContent = cand.role_title || "Local Candidate";
+            document.getElementById("ltModalLoc").textContent = cand.location || "Local Region";
+            document.getElementById("ltModalEdu").textContent = cand.education || "Graduate";
+            document.getElementById("ltModalQual").textContent = cand.qualification || "Verified";
+            document.getElementById("ltModalExp").textContent = cand.experience || "Fresher";
+            document.getElementById("ltModalEmail").textContent = cand.email || "-";
+            document.getElementById("ltModalPhone").textContent = cand.phone || "-";
+            document.getElementById("ltModalEmailBtn").href = `mailto:${cand.email}?subject=Local Job Opportunity via AI Recruit`;
+
+            const skillsEl = document.getElementById("ltModalSkills");
+            skillsEl.innerHTML = (cand.skills || []).map(s => `
+                <span style="background: #ede9fe; color: #6d28d9; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">${s}</span>
+            `).join('');
+
+            document.getElementById("localCandModal").style.display = "flex";
+        }
+
+        function closeLtModal() {
+            document.getElementById("localCandModal").style.display = "none";
+        }
+
+        // Auto load initial talent
+        findLocalTalent();
+    </script>
+</body>
+</html>

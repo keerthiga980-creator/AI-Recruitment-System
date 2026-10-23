@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post a Job - AI Recruit</title>
+
+    <link rel="stylesheet" href="static/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #6366f1;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #666;
+        }
+
+        .job-form {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #6366f1;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #4f46e5;
+        }
+
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            display: none;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .status-message.success {
+            display: block;
+            background: #e8f8ee;
+            color: #198754;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #fde8e8;
+            color: #d32f2f;
+            border: 1px solid #f5c6cb;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .job-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            AI <span>Recruit</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="hr-dashboard.html">Dashboard</a>
+            <a href="login.html">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="page-container">
+
+        <div class="page-title">
+            <h1>Post a New Job</h1>
+            <p>Create a job opportunity and find suitable candidates using AI.</p>
+        </div>
+
+
+        <!-- Job Form -->
+        <form class="job-form" id="jobForm">
+            <div id="statusMessage" class="status-message"></div>
+
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+
+                <input
+                    type="text"
+                    id="jobTitle"
+                    placeholder="Example: Python Developer"
+                    required
+                >
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        placeholder="Enter company name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="location">Job Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Example: Coimbatore"
+                        required
+                    >
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="jobType">Job Type</label>
+
+                    <select id="jobType" required>
+
+                        <option value="">Select job type</option>
+
+                        <option value="Full Time">
+                            Full Time
+                        </option>
+
+                        <option value="Part Time">
+                            Part Time
+                        </option>
+
+                        <option value="Internship">
+                            Internship
+                        </option>
+
+                        <option value="Work From Home">
+                            Work From Home
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="experience">Experience</label>
+
+                    <select id="experience" required>
+
+                        <option value="">Select experience</option>
+
+                        <option value="Fresher">
+                            Fresher
+                        </option>
+
+                        <option value="0-1 Years">
+                            0-1 Years
+                        </option>
+
+                        <option value="1-3 Years">
+                            1-3 Years
+                        </option>
+
+                        <option value="3-5 Years">
+                            3-5 Years
+                        </option>
+
+                        <option value="5+ Years">
+                            5+ Years
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="salary">
+                    Salary
+                </label>
+
+                <input
+                    type="text"
+                    id="salary"
+                    placeholder="Example: ₹3 - ₹5 LPA"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="skills">
+                    Required Skills
+                </label>
+
+                <input
+                    type="text"
+                    id="skills"
+                    placeholder="Example: Python, SQL, Machine Learning"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="description">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="description"
+                    placeholder="Enter job responsibilities and requirements..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Post Job →
+            </button>
+
+        </form>
+
+
+        <a href="hr-dashboard.html" class="back-btn">
+            ← Back to HR Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+    const jobForm = document.getElementById("jobForm");
+    const statusMessage = document.getElementById("statusMessage");
+    const submitBtn = document.querySelector(".submit-btn");
+
+    jobForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        // Hide previous messages
+        statusMessage.style.display = "none";
+        statusMessage.className = "status-message";
+
+        const jobTitle = document.getElementById("jobTitle").value.trim();
+        const company = document.getElementById("company").value.trim();
+        const location = document.getElementById("location").value.trim();
+        const jobType = document.getElementById("jobType").value;
+        const experience = document.getElementById("experience").value;
+        const skills = document.getElementById("skills").value.trim();
+        const salary = document.getElementById("salary")?.value.trim() || "";
+        const description = document.getElementById("description")?.value.trim() || "";
+
+        if (!jobTitle || !company || !location || !jobType || !experience || !skills) {
+            statusMessage.className = "status-message error";
+            statusMessage.innerHTML = "⚠️ <strong>Missing Fields:</strong> Please fill in all required fields.";
+            statusMessage.style.display = "block";
+            return;
+        }
+
+        const jobData = {
+            jobTitle: jobTitle,
+            company: company,
+            location: location,
+            jobType: jobType,
+            experience: experience,
+            salary: salary,
+            skills: skills,
+            description: description
+        };
+
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Posting Job...";
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/jobs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jobData)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                statusMessage.className = "status-message success";
+                statusMessage.innerHTML = "🎉 <strong>Success!</strong> Job \"" + jobTitle + "\" at " + company + " has been posted successfully!";
+                statusMessage.style.display = "block";
+
+                alert("Job Posted Successfully! 🎉\n\nJob: " + jobTitle + "\nCompany: " + company + "\nLocation: " + location);
+                jobForm.reset();
+            } else {
+                statusMessage.className = "status-message error";
+                statusMessage.innerHTML = "❌ <strong>Failed:</strong> Server returned an error.";
+                statusMessage.style.display = "block";
+                console.error(data);
+            }
+        } catch (error) {
+            console.error("Backend Error:", error);
+            statusMessage.className = "status-message error";
+            statusMessage.innerHTML = "❌ <strong>Connection Error:</strong> Cannot reach backend at <code>http://127.0.0.1:8000/jobs</code>.<br>Please make sure the FastAPI server is running.";
+            statusMessage.style.display = "block";
+            alert("Unable to connect to backend. Please check if uvicorn is running.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Post Job →";
+        }
+    });
+    </script>
+</body>
+</html>

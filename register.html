@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Recruit - Create Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+
+            background:
+                radial-gradient(circle at 10% 15%, rgba(108,99,255,.35), transparent 28%),
+                radial-gradient(circle at 90% 20%, rgba(0,198,255,.25), transparent 25%),
+                radial-gradient(circle at 80% 90%, rgba(255,78,205,.25), transparent 30%),
+                linear-gradient(135deg, #070817, #11132e, #090d20);
+
+            overflow: hidden;
+        }
+
+        /* Background Glow */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: #6c63ff;
+            filter: blur(120px);
+            opacity: .22;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: #ff4ecd;
+            filter: blur(120px);
+            opacity: .18;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        /* Main Card */
+
+        .register-wrapper {
+            position: relative;
+            width: 950px;
+            min-height: 600px;
+
+            display: flex;
+
+            border-radius: 30px;
+            overflow: hidden;
+
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.18);
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,.55),
+                0 0 45px rgba(108,99,255,.15);
+
+            backdrop-filter: blur(20px);
+        }
+
+        /* Gradient Border */
+
+        .register-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+
+            border-radius: 32px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #6c63ff,
+                    #00c6ff,
+                    #ff4ecd,
+                    #6c63ff
+                );
+
+            background-size: 300% 300%;
+
+            animation: borderGlow 6s ease infinite;
+
+            z-index: -1;
+            opacity: .45;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Left */
+
+        .register-left {
+            width: 43%;
+            padding: 55px;
+
+            color: white;
+
+            background:
+                radial-gradient(circle at 85% 15%, rgba(0,198,255,.3), transparent 30%),
+                radial-gradient(circle at 15% 85%, rgba(255,78,205,.25), transparent 30%),
+                linear-gradient(145deg, #21164f, #30237a, #102b52);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 70px;
+        }
+
+        .logo span {
+            color: #aef7ff;
+        }
+
+        .register-left h1 {
+            font-size: 40px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .register-left h1 span {
+            background: linear-gradient(
+                90deg,
+                #aef7ff,
+                #ffb5ef
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .register-left p {
+            color: #dcdcff;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Feature Pills */
+
+        .features {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature {
+            padding: 11px 15px;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.12);
+
+            color: #eeeeff;
+            font-size: 13px;
+        }
+
+        /* Right */
+
+        .register-right {
+            width: 57%;
+            padding: 45px 55px;
+
+            background: rgba(15,16,35,.85);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .register-right h2 {
+            color: white;
+            font-size: 31px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #9999b3;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Inputs */
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .input-group {
+            flex: 1;
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #dddded;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            height: 47px;
+
+            padding: 0 14px;
+
+            color: white;
+
+            background: rgba(255,255,255,.06);
+
+            border: 1px solid rgba(255,255,255,.14);
+
+            border-radius: 11px;
+
+            outline: none;
+
+            transition: .3s;
+        }
+
+        .input-group input::placeholder {
+            color: #777790;
+        }
+
+        .input-group select {
+            color: #aaaabd;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #8b82ff;
+
+            box-shadow:
+                0 0 0 4px rgba(108,99,255,.12),
+                0 0 20px rgba(108,99,255,.10);
+        }
+
+        /* Account Type */
+
+        .account-title {
+            color: #dddded;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .account-types {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .account-type {
+            flex: 1;
+            padding: 12px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255,255,255,.14);
+
+            color: #aaaabd;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .account-type:hover {
+            border-color: #8b82ff;
+            color: white;
+            background: rgba(108,99,255,.10);
+        }
+
+        .create-btn {
+            width: 100%;
+            height: 52px;
+
+            border: none;
+            border-radius: 12px;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c63ff,
+                    #00a8ff,
+                    #ff4ecd
+                );
+
+            background-size: 200% 200%;
+
+            transition: .4s;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-3px);
+
+            background-position: right center;
+
+            box-shadow:
+                0 12px 30px rgba(108,99,255,.35);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+
+            color: #85859e;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #8b82ff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        @media (max-width: 800px) {
+
+            .register-wrapper {
+                width: 95%;
+            }
+
+            .register-left {
+                display: none;
+            }
+
+            .register-right {
+                width: 100%;
+            }
+
+            .input-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+body {
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.register-wrapper {
+    margin: 40px 0;
+}
+
+.account-type {
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.account-type.selected {
+    border-color: #8b82ff;
+    background: linear-gradient(
+        135deg,
+        rgba(108, 99, 255, 0.20),
+        rgba(0, 198, 255, 0.10)
+    );
+    color: white;
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.15);
+    transform: translateY(-2px);
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="register-wrapper">
+
+        <!-- LEFT SIDE -->
+
+        <div class="register-left">
+
+            <div class="logo">
+                <span>AI</span> Recruit
+            </div>
+
+            <h1>
+                Your next<br>
+                <span>opportunity</span> starts here.
+            </h1>
+
+            <p>
+                Join an intelligent recruitment platform
+                designed to connect people, skills and
+                opportunities using AI.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    ✨ AI-powered talent matching
+                </div>
+
+                <div class="feature">
+                    🎯 Smart candidate discovery
+                </div>
+
+                <div class="feature">
+                    📍 Local talent opportunities
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="register-right">
+
+            <h2>Create your account 🚀</h2>
+
+            <p class="subtitle">
+                Start your journey with AI Recruit.
+            </p>
+
+            <div id="regAlert" style="display: none; padding: 12px 15px; border-radius: 10px; margin-bottom: 18px; font-size: 14px;"></div>
+            <form id="registerForm">
+
+                <div class="input-row">
+
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input
+                            type="text"
+                            id="firstName" placeholder="First name"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input
+                            type="text"
+                            id="lastName" placeholder="Last name"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        id="regEmail" placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-row">
+
+                    <div class="input-group">
+
+                        <label>Password</label>
+
+                        <input
+                            type="password"
+                            id="regPassword" placeholder="Create password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Confirm Password</label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword" placeholder="Confirm password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="account-title">
+                    I am joining as
+                </div>
+
+                <div class="account-types">
+                    <div class="account-type selected" data-role="candidate">
+                        👤 Candidate
+                    </div>
+                    <div class="account-type" data-role="hr">
+                        💼 Recruiter
+                    </div>
+                </div>
+
+
+                <button class="create-btn" type="submit">
+                    Create Account →
+                </button>
+
+            </form>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+<script src="static/js/script.js"></script>
+<script>
+    let selectedRole = "candidate";
+    const accountTypes = document.querySelectorAll(".account-type");
+
+    accountTypes.forEach(type => {
+        type.addEventListener("click", () => {
+            accountTypes.forEach(item => item.classList.remove("selected"));
+            type.classList.add("selected");
+            selectedRole = type.getAttribute("data-role") || "candidate";
+        });
+    });
+
+    const regForm = document.getElementById("registerForm");
+    const regAlert = document.getElementById("regAlert");
+    const regSubmitBtn = document.querySelector(".create-btn");
+
+    regForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        regAlert.style.display = "none";
+
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const email = document.getElementById("regEmail").value.trim();
+        const password = document.getElementById("regPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (!firstName || !email || !password) {
+            showRegAlert("Please fill in all required fields.", false);
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showRegAlert("Passwords do not match! Please verify your password.", false);
+            return;
+        }
+
+        if (password.length < 6) {
+            showRegAlert("Password should be at least 6 characters.", false);
+            return;
+        }
+
+        regSubmitBtn.disabled = true;
+        regSubmitBtn.textContent = "Creating Account...";
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: firstName + (lastName ? " " + lastName : ""),
+                    email: email,
+                    password: password,
+                    role: selectedRole,
+                    location: "Coimbatore"
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showRegAlert("🎉 " + data.message, true);
+                setCurrentUser(data.user);
+
+                setTimeout(() => {
+                    if (data.user.role === "candidate") {
+                        window.location.href = "candidate-dashboard.html";
+                    } else {
+                        window.location.href = "hr-dashboard.html";
+                    }
+                }, 700);
+            } else {
+                showRegAlert(data.detail || "Registration failed. Please try again.", false);
+            }
+        } catch (error) {
+            console.error("Register Error:", error);
+            showRegAlert("Cannot connect to backend server. Make sure FastAPI is running.", false);
+        } finally {
+            regSubmitBtn.disabled = false;
+            regSubmitBtn.textContent = "Create Account →";
+        }
+    });
+
+    function showRegAlert(msg, isSuccess) {
+        regAlert.textContent = msg;
+        regAlert.style.display = "block";
+        regAlert.style.background = isSuccess ? "rgba(25, 135, 84, 0.35)" : "rgba(220, 53, 69, 0.35)";
+        regAlert.style.border = isSuccess ? "1px solid #198754" : "1px solid #dc3545";
+        regAlert.style.color = "#fff";
+    }
+</script>
+</body>
+</html>
